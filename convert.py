@@ -2,13 +2,13 @@ from PIL import Image
 import os
 from pathlib import Path
 
-# Convert images to WebP format with a target width while maintaining aspect ratio
 # Settings
 input_folder = "input_images"
 output_folder = "output_images"
 target_width = 1080  # px
+start_index = 5
 
-# Make sure output folder exists
+# Ensure output folder exists
 os.makedirs(output_folder, exist_ok=True)
 
 # Allowed formats
@@ -28,13 +28,21 @@ def convert_to_webp(img_path, output_path):
     except Exception as e:
         print(f"❌ Error processing {img_path}: {e}")
 
-# Process all images
+# Process images and rename as gallery5, gallery6, ...
+index = start_index
 for filename in os.listdir(input_folder):
     ext = os.path.splitext(filename)[1].lower()
     if ext in valid_extensions:
         in_path = os.path.join(input_folder, filename)
-        out_name = os.path.splitext(filename)[0] + ".webp"
+        out_name = f"gallery{index}.webp"
         out_path = os.path.join(output_folder, out_name)
         convert_to_webp(in_path, out_path)
+        index += 1
 
-print("🎉 All images converted.")
+print("🎉 All images converted and renamed.")
+
+# Delete original images
+for filename in os.listdir(input_folder):
+    if filename.endswith(".jpg") or filename.endswith(".jpeg") or filename.endswith(".png") or filename.endswith(".bmp") or filename.endswith(".tiff"):
+        os.remove(os.path.join(input_folder, filename))
+        print(f"🗑️ Deleted original: {filename}")

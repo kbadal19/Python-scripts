@@ -8,7 +8,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 import traceback # Import traceback for better error details
 
-CHANNEL_URL = "https://www.youtube.com/@mithileshkumarsingh71/videos"
+CHANNEL_URL = "https://www.youtube.com/@MannatIVFgynae_centre/videos"
 
 def get_video_links_and_titles():
     options = Options()
